@@ -1,0 +1,59 @@
+parameters:
+  database_driver: pdo_sqlite
+  database_host: 127.0.0.1
+  database_port: ~
+  database_name: symfony
+  database_user: root
+  database_password: ~
+  database_path: "/data/wallabag.db"
+  database_table_prefix: wallabag_
+  database_socket: null
+  database_charset: utf8
+
+  test_database_driver: pdo_sqlite
+  test_database_host: 127.0.0.1
+  test_database_port: ~
+  test_database_name: ~
+  test_database_user: ~
+  test_database_password: ~
+  test_database_path: "/data/wallabag.db.test"
+
+  mailer_transport:  smtp
+  mailer_host:       127.0.0.1
+  mailer_user:       ~
+  mailer_password:   ~
+
+  locale:            en
+
+  # A secret key that's used to generate certain security-related tokens
+  secret: ovkdslhHIDMSkgdklDSMIKHDgfkldf
+  domain_name: https://wallabag.org
+  
+  # two factor stuff
+  twofactor_auth: true
+  twofactor_sender: no-reply@wallabag.org
+
+  # fosuser stuff
+  fosuser_registration: true
+  fosuser_confirmation: true
+
+  from_email: no-reply@wallabag.org
+
+  rss_limit: 50
+
+  # RabbitMQ processing
+  rabbitmq_host: localhost
+  rabbitmq_port: 5672
+  rabbitmq_user: guest
+  rabbitmq_password: guest
+  rabbitmq_prefetch_count: 10
+
+  # Redis processing
+  redis_scheme: tcp
+  redis_host: localhost
+  redis_port: 6379
+  redis_path: null
+  redis_password: null
+
+  # sites credentials
+  sites_credentials: {}

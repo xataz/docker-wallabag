@@ -1,0 +1,57 @@
+version: "3.2"
+
+services:
+  wallabag:
+    image: xataz/wallabag
+    environment:
+      - DB_TYPE=mysql
+      - DB_HOST=wallabag-db
+      - DB_PORT=3306
+      - DB_USER=wallabag
+      - DB_PASS=wallabag
+      - DB_NAME=wallabag
+      - ENABLE_REDIS=true
+      - REDIS_HOST=redis
+    ports:
+      - "8000:8080"
+    depends_on:
+      - wallabag-db
+    volumes:
+      - /docker/wallabag/img:/app/wallabag/web/assets/images
+
+  redis:
+    image: redis:alpine
+
+  wallabag-db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=wallabag
+      - MYSQL_DATABASE=wallabag
+      - MYSQL_USER=wallabag
+      - MYSQL_PASSWORD=wallabag
+    volumes:
+      - /docker/wallabag/db:/var/lib/mysql
+
+
+  # wallabag:
+  #   image: xataz/wallabag
+  #   environment:
+  #     - DB_TYPE=pgsql
+  #     - DB_HOST=postgres
+  #     - DB_PORT=5432
+  #     - DB_USER=wallabag
+  #     - DB_PASS=wallabag
+  #     - DB_NAME=wallabag
+  #     - ENABLE_REDIS=true
+  #     - REDIS_HOST=redis
+  #   ports:
+  #     - "8000:8080"
+  #   depends_on:
+  #     - mariadb
+
+  # postgres:
+  #   image: postgres
+  #   environment:
+  #     - POSTGRES_USER=wallabag
+  #     - POSTGRES_PASSWORD=wallabag
+  #     - POSTGRES_DB=wallabag

@@ -1,0 +1,96 @@
+#!/bin/sh
+
+f_config_pgsql() {
+    i=1
+    while [ $i -le 5 ]; do
+        echo "Try connect to postgres database ($i/5)"
+        PGPASSWORD=${DB_PASS} psql -h ${DB_HOST} -d ${DB_NAME} -U ${DB_USER} -p ${DB_PORT} -c "select count(*) FROM wallabag_user;" > /dev/null 2> /dev/null
+        if [ $? -eq 1 ]; then
+            php bin/console wallabag:install --env=prod -n
+            break
+        elif [ $? -eq 0 ]; then
+            php bin/console doctrine:migrations:migrate --env=prod -n
+            break
+        fi
+        i=$(($i+1))
+        sleep 5
+    done 
+    if [ $i -eq 6 ]; then
+        echo "Database not available"
+        exit 1
+    fi
+}
+
+f_config_mysql() {
+    i=1
+    while [ $i -le 5 ]; do
+        echo "Try connect to mysql database ($i/5)"
+        mysqladmin -h${DB_HOST} -u${DB_USER} -P${DB_PORT} -p${DB_PASS} processlist > /dev/null 2> /dev/null
+        if [ $? -eq 0 ]; then
+            echo "Database available"
+            mysql -h${DB_HOST} -u${DB_USER} -P${DB_PORT} -p${DB_PASS} -D${DB_NAME} -e "select count(*) from wallabag_user;"
+            if [ $? -eq 0 ]; then
+                php bin/console doctrine:migrations:migrate --env=prod -n
+            else
+                php bin/console wallabag:install --env=prod -n
+            fi
+            break
+        fi
+        i=$(($i+1))
+        sleep 5
+    done 
+    if [ $i -eq 6 ]; then
+        echo "Database not available"
+        exit 1
+    fi
+}
+
+f_config_sqlite() {
+    if [ -e /data/wallabag.db ]; then
+        echo "SELECT * FROM wallabag_user;" |sqlite3 /data/wallabag.db
+        if [ $? -ne 0 ]; then
+            php bin/console doctrine:migrations:migrate --env=prod -n
+        else
+            php bin/console wallabag:install --env=prod -n
+        fi
+    else
+        php bin/console wallabag:install --env=prod -n
+    fi    
+}
+
+## Create user wallabag
+echo "Create wallabag User"
+addgroup -g ${GID} wallabag && adduser -h /home/wallabag -s /bin/sh -G wallabag -D -u ${UID} wallabag
+
+echo "Generate templates"
+if [[ "${DB_TYPE}" != "pgsql" ]] && [[ "${DB_TYPE}" != "sqlite" ]] && [[ "${DB_TYPE}" != "mysql" ]]; then
+export DB_TYPE=sqlite
+fi
+gucci /etc/templates.d/parameters.yml > /app/wallabag/app/config/parameters.yml
+chown wallabag:wallabag /app/wallabag/app/config/parameters.yml
+
+echo "Configure wallabag"
+mkdir -p /data/
+cd /app/wallabag
+rm -rf var/cache/*
+
+if [ "${DB_TYPE}" == "pgsql" ]; then
+    f_config_pgsql
+elif [ "${DB_TYPE}" == "mysql" ]; then
+    f_config_mysql
+else
+    f_config_sqlite
+fi
+
+
+echo "Set permission"
+chown -R wallabag:wallabag /etc/s6.d /home/wallabag /data /var/lib/nginx /etc/php7 /etc/nginx /var/log /tmp /app/wallabag
+find /etc/s6.d/ -name run -exec chmod +x {} \;
+find /etc/s6.d/ -name finish -exec chmod +x {} \;
+
+echo "Exec s6.d"
+if [ $# -eq 0 ]; then
+    exec su-exec wallabag:wallabag /bin/s6-svscan /etc/s6.d
+else
+    exec su-exec wallabag:wallabag $@
+fi

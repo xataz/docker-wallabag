@@ -1,0 +1,72 @@
+parameters:
+  database_driver: pdo_{{ .DB_TYPE }}
+  {{ if (eq .DB_TYPE "sqlite") }}
+  database_host: null
+  database_port: null
+  database_name: null
+  database_user: null
+  database_password: null
+  database_path: "/data/wallabag.db"
+  {{ else }}
+  database_host: {{ .DB_HOST }}
+  database_port: {{ .DB_PORT }}
+  database_name: {{ .DB_NAME }}
+  database_user: {{ .DB_USER }}
+  database_password: {{ .DB_PASS }}
+  database_path: ""
+  {{ end }}
+  database_table_prefix: wallabag_
+  database_socket: null
+  database_charset: utf8
+
+  mailer_transport:  smtp
+  mailer_host:       {{ .MAIL_HOST }}
+  mailer_user:       {{ .MAIL_USER }}
+  mailer_password:   {{ .MAIL_PASS }}
+
+  locale:            en
+
+  domain_name: {{ .DOMAIN_NAME }}
+  # A secret key that's used to generate certain security-related tokens
+  secret: {{ .SECRET }}
+
+  # two factor stuff
+  twofactor_auth: true
+  twofactor_sender: no-reply@wallabag.org
+
+  # fosuser stuff
+  fosuser_registration: {{ .ENABLE_REGISTRATION }}
+  fosuser_confirmation: true
+
+  from_email: {{ .MAIL_ADDRESS }}
+  rss_limit: 50
+
+  # RabbitMQ processing
+  {{ if (eq .ENABLE_RABBITMQ "true") }}
+  rabbitmq_host: {{ .RABBITMQ_HOST }}
+  rabbitmq_port: {{ .RABBITMQ_PORT }}
+  rabbitmq_user: {{ .RABBITMQ_USER }}
+  rabbitmq_password: {{ .RABBITMQ_PASS }}
+  {{ else }}
+  rabbitmq_host: null
+  rabbitmq_port: null
+  rabbitmq_user: null
+  rabbitmq_password: null
+  {{ end }}
+  rabbitmq_prefetch_count: 10
+
+  # Redis processing
+  redis_scheme: tcp
+  {{ if (eq .ENABLE_REDIS "true") }}
+  redis_host: {{ .REDIS_HOST }}
+  redis_port: {{ .REDIS_PORT }}
+  redis_password: {{ .REDIS_PASS }}
+  {{ else }}
+  redis_host: null
+  redis_port: null
+  redis_password: null
+  {{ end }}
+  redis_path: null
+
+  # sites credentials
+  sites_credentials: {}
