@@ -8,10 +8,10 @@
 > If you don't trust, you can build yourself.
 
 ## Tag available
-* 2.3.0, 2.3, 2, latest [(Dockerfile)](https://github.com/xataz/dockerfiles/tree/master/transmission/Dockerfile)
+* 2.3.1, 2.3, 2, latest [(Dockerfile)](https://github.com/xataz/docker-wallabag/Dockerfile)
 
 ## Description
-What is [wallabag](http://www.transmissionbt.com/) ?
+What is [wallabag](https://wallabag.org/) ?
 
 wallabag is a self-hostable PHP application allowing you to not miss any content anymore. Click, save and read it when you can. It extracts content so that you can read it when you have time.
 
