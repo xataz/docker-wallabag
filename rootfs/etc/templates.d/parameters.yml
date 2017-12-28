@@ -15,6 +15,11 @@ parameters:
   database_password: {{ .DB_PASS }}
   database_path: ""
   {{ end }}
+  {{ if (eq .DB_TYPE "pgsql") }}
+  database_driver_class: Wallabag\CoreBundle\Doctrine\DBAL\Driver\CustomPostgreSQLDriver
+  {{ else }}
+  database_driver_class: ~
+  {{ end }}
   database_table_prefix: wallabag_
   database_socket: null
   database_charset: utf8

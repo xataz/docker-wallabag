@@ -21,7 +21,7 @@ wallabag is a self-hostable PHP application allowing you to not miss any content
 * Support Redis and RabbitMQ
 
 ## Bug issue
-* Postgresql not support by wallabag 2.3.0 ([#3479](https://github.com/wallabag/wallabag/issues/3479))
+* Postgresql not support by wallabag 2.3.0 ([#3479](https://github.com/wallabag/wallabag/issues/3479)) (Fix with 2.3.1)
 
 ## Build Image
 

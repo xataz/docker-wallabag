@@ -3,7 +3,7 @@ FROM xataz/alpine:3.7
 LABEL Description="walabag based on alpine" \
       tags="latest 2.3.1 2.3 2" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017122601"
+      build_ver="2017122801"
 
 ARG WALLABAG_VER=2.3.1
 
