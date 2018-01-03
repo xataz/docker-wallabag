@@ -31,7 +31,7 @@ parameters:
 
   locale:            en
 
-  domain_name: https://{{ .DOMAIN_NAME }}
+  domain_name: {{ .DOMAIN_NAME }}
   # A secret key that's used to generate certain security-related tokens
   secret: {{ .SECRET }}
 
