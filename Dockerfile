@@ -3,7 +3,7 @@ FROM xataz/alpine:3.7
 LABEL Description="walabag based on alpine" \
       tags="latest 2.3.1 2.3 2" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="2017122801"
+      build_ver="2018010401"
 
 ARG WALLABAG_VER=2.3.1
 
@@ -17,7 +17,7 @@ ENV DB_TYPE=sqlite \
     MAIL_USER=~ \
     MAIL_PASS=~ \
     MAIL_ADRESS=wallabag@mydomain.tld \
-    DOMAIN_NAME=wallabag.mydomain.tld \
+    DOMAIN_NAME=http://wallabag.mydomain.tld \
     SECRET=ovkdslhHIDMSkgdklDSMIKHDgfkldf \
     ENABLE_REGISTRATION=false \
     ENABLE_RABBITMQ=false \
