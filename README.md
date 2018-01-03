@@ -45,7 +45,7 @@ docker build -t xataz/wallabag github.com/xataz/docker-wallabag
 | MAIL_USER | smtp username | ~ | Valid username for smtp server |
 | MAIL_PASS | smtp password | ~ | Valid password for smtp server |
 | MAIL_ADRESS | Mail address for contact | wallabag@mydomain.tld | Valid mail address |
-| DOMAIN_NAME | Domain to use for wallabag access | http(s)://wallabag.mydomain.tld | Valid domain name |
+| DOMAIN_NAME | Domain to use for wallabag access | http://wallabag.mydomain.tld | Valid domain name |
 | SECRET | Secret for php sessions | ovkdslhHIDMSkgdklDSMIKHDgfkldf | Randomize |
 | ENABLE_REGISTRATION | Enable user registration | false | true or false |
 | ENABLE_RABBITMQ | Enable rabbitmq for asynchronous tasks | false | true or flase |
