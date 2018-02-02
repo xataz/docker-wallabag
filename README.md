@@ -8,7 +8,7 @@
 > If you don't trust, you can build yourself.
 
 ## Tag available
-* 2.3.1, 2.3, 2, latest [(Dockerfile)](https://github.com/xataz/docker-wallabag/Dockerfile)
+* 2.3.2, 2.3, 2, latest [(Dockerfile)](https://github.com/xataz/docker-wallabag/Dockerfile)
 
 ## Description
 What is [wallabag](https://wallabag.org/) ?
@@ -19,9 +19,6 @@ wallabag is a self-hostable PHP application allowing you to not miss any content
 * Support install on sqlite, mysql and postgres
 * No **ROOT** process
 * Support Redis and RabbitMQ
-
-## Bug issue
-* Postgresql not support by wallabag 2.3.0 ([#3479](https://github.com/wallabag/wallabag/issues/3479)) (Fix with 2.3.1)
 
 ## Build Image
 
