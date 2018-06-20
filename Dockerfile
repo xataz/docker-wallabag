@@ -1,11 +1,11 @@
 FROM xataz/alpine:3.7
 
 LABEL Description="walabag based on alpine" \
-      tags="latest 2.3.2 2.3 2" \
+      tags="latest 2.3.3 2.3 2" \
       maintainer="xataz <https://github.com/xataz>" \
-      build_ver="201806190432"
+      build_ver="201806200600"
 
-ARG WALLABAG_VER=2.3.2
+ARG WALLABAG_VER=2.3.3
 
 ENV DB_TYPE=sqlite \
     DB_HOST=wallabag-db \

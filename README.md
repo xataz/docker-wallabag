@@ -8,7 +8,7 @@
 > If you don't trust, you can build yourself.
 
 ## Tag available
-* latest, 2.3.2, 2.3, 2 [(Dockerfile)](https://github.com/xataz/docker-wallabag/blob/master/Dockerfile)
+* latest, 2.3.3, 2.3, 2 [(Dockerfile)](https://github.com/xataz/docker-wallabag/blob/master/Dockerfile)
 
 ## Description
 What is [wallabag](https://wallabag.org/) ?
